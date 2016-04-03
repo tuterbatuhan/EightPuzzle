@@ -1,34 +1,37 @@
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class EightPuzzle {
 
 	public static void main(String[] args) {
-
+		
+		long time = System.currentTimeMillis();
 		List<State> list = new ArrayList<>();
-		while(list.size()<1000)
+		while(list.size()<30)
 		{
 			State s2 = StateFactory.getRandomState();
 			if(!list.contains(s2))
 				list.add(s2);
 		}
+		System.out.println("Generate Time: " + (System.currentTimeMillis() - time));
 		
+		time = System.currentTimeMillis();
 		int found=0;
 		for(State s : list){
 			if(beamSearch(s, new State(), 2)!=null)
 				found++;
 		}
 		System.out.println(found);
-		
+		System.out.println("Solve Time: " +(System.currentTimeMillis() - time));
 		
 	}
 	public static Path beamSearch(State startState, State endState, int w){
-		List<State> agenda = new LinkedList<>();
+		Set<State> agenda = new HashSet<>();
 		
 		Queue<Path> Q = new LinkedList<>();
 		Q.offer(new Path(null,startState));

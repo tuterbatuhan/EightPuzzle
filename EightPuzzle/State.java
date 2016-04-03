@@ -7,9 +7,24 @@ public class State {
 	byte emptyIndice = 0;
 	private byte [] board = new byte [9];
 	private byte score = -1;
+	
 	static final byte EMPTY = 9;
 	private enum MoveType {UP,DOWN,LEFT,RIGHT};
 	
+	
+	private int hash = -1;
+	
+	@Override
+	public int hashCode()
+	{
+		if (hash == -1)
+		{
+			hash = 0;
+			for (int i = 0 ; i < board.length ; i++)
+				hash = hash*10 + board[i];
+		}
+		return hash;
+	}
 	public State()
 	{
 		for (byte i=0; i<9;i++){
